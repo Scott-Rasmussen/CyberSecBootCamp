@@ -1,0 +1,62 @@
+##The Lucky Duck Casino was noticing suspicious losses at the roulette table on certain days in March.
+
+##Raw data was pulled for the days of the losses and a list of the dealers working the days in
+##quetion was complied by using the script Dealer_Schedule_Combined.sh
+
+##This is the script used to compile Dealer schedule over multiple days.
+#! /bin/bash
+
+##script to compile all dealer's schedules over multiple days.
+
+##Script Used - where $n is the schedule of the day in question.
+grep -FH " " $1 > Dealer_Schedule_Combined.txt
+grep -FH " " $2 >> Dealer_Schedule_Combined.txt
+grep -FH " " $3 >> Dealer_Schedule_Combined.txt
+
+##end script
+
+##Once the file Dealer_Schedule_Combined.txt was created a script was made to winnow out the
+##Roulette Dealer on the days in question.
+
+##First the sed command was used on Roulette_Losses.txt (showing times of the losses on the
+##days in question) to create the file Roulette_Losses_Amended.txt. The sed command replaced the string "win_loss_player_data"
+##to "Dealer_schedule".
+
+sed s/win_loss_player_data/Dealer_schedule/Roulette_Losses.txt > Roulette_Losses_Amended.txt
+
+##This provided a file with data that could be run against Dealer_Schedule_Combine.txt
+
+##The data collected from the Roulette_Losses_Amended.txt <newly formated date and time> was then inserted into the grep variable $n to run the script Suspicious_Roulette_Dealer.sh
+
+##Script Suspicious_Roulette_Dealer.sh created to winnow out dealers working on days and times in question
+
+#! /bin/bash
+
+##initial script to understand pipe flow
+cat Dealer_Schedule_Combined.txt | awk -F" " '{print ($1, $2, $5, $6)}' >  Suspicious_Roulette_Dealer1.txt | grep "$1" Suspicious_Roulette_Dealer1.txt > Suspicious_Roulette_Dealer_Combined.txt
+
+$n = <xxxx_Dealer_schedule.txt:xx:xx:xx xx>
+
+##final script where grep $n is the day/date/time data pulled from Roulette_Losses_Amended.txt, compared to the file
+##Dealer_Schedule_Combined.txt and outputted as Suspicious_Roulette_Dealer_compined. 
+cat Dealer_Schedule_Combined.txt | awk -F" " '{print ($1, $2, $5, $6)}' | grep "$1" > Suspicious_Roulette_Dealer_Combined.txt
+cat Dealer_Schedule_Combined.txt | awk -F" " '{print ($1, $2, $5, $6)}' | grep "$2" >> Suspicious_Roulette_Dealer_Combined.txt
+cat Dealer_Schedule_Combined.txt | awk -F" " '{print ($1, $2, $5, $6)}' | grep "$3" >> Suspicious_Roulette_Dealer_Combined.txt
+cat Dealer_Schedule_Combined.txt | awk -F" " '{print ($1, $2, $5, $6)}' | grep "$4" >> Suspicious_Roulette_Dealer_Combined.txt
+cat Dealer_Schedule_Combined.txt | awk -F" " '{print ($1, $2, $5, $6)}' | grep "$5" >> Suspicious_Roulette_Dealer_Combined.txt
+cat Dealer_Schedule_Combined.txt | awk -F" " '{print ($1, $2, $5, $6)}' | grep "$6" >> Suspicious_Roulette_Dealer_Combined.txt
+cat Dealer_Schedule_Combined.txt | awk -F" " '{print ($1, $2, $5, $6)}' | grep "$7" >> Suspicious_Roulette_Dealer_Combined.txt
+cat Dealer_Schedule_Combined.txt | awk -F" " '{print ($1, $2, $5, $6)}' | grep "$8" >> Suspicious_Roulette_Dealer_Combined.txt
+cat Dealer_Schedule_Combined.txt | awk -F" " '{print ($1, $2, $5, $6)}' | grep "$9" >> Suspicious_Roulette_Dealer_Combined.txt
+cat Dealer_Schedule_Combined.txt | awk -F" " '{print ($1, $2, $5, $6)}' | grep "$10" >> Suspicious_Roulette_Dealer_Combined.txt
+cat Dealer_Schedule_Combined.txt | awk -F" " '{print ($1, $2, $5, $6)}' | grep "$11" >> Suspicious_Roulette_Dealer_Combined.txt
+cat Dealer_Schedule_Combined.txt | awk -F" " '{print ($1, $2, $5, $6)}' | grep "$12" >> Suspicious_Roulette_Dealer_Combined.txt
+cat Dealer_Schedule_Combined.txt | awk -F" " '{print ($1, $2, $5, $6)}' | grep "$13" >> Suspicious_Roulette_Dealer_Combined.txt
+~                                                                                                                                      
+##end script
+
+##The final output is .txt document called Suspicious_Roulette_Dealer.txt (see attached) which tells us one major fact.
+##We know from our analysis of the win_loss_player_data that there were 13 instances of losses over the three days in question.
+##On every single day and time of the 13 instances where losses occured, the only Roulette Dealer to be working at those times was Billy Jones.
+ 
+   

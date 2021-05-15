@@ -1,0 +1,23 @@
+There has been a suspicious amount of losses by the Roulette Table at the Lucky Duck Casino and an investigation was launched.
+
+Utilizing the methodology laid out in the file Notes_Player_Analysis.txt it was established that there were 13 instances
+of suspicious losses over the course of three non-consecutive days. The data showed that at theses times there was one player
+ consistentlay present at all the times the losses occured. 
+
+This payer was one Mylie Schmidt.
+
+Now it could very well be that Mylie has been very lucky and on a "hot streak" at the table, though this is very unlikely
+once other data is brought forth and analyzed.
+
+The Notes_Dealer_Analysis.txt demonstrated the methodology used in order to see which dealers were working the Roulette Table 
+when the instances of loss occured. Though The Lucky Duck Casino employs numerous Roulette Dealers there was a single individual
+that worked the table every single time the losses occured.
+
+This dealer was Billy jones.
+
+Now there is the saying that correlation does not necessarily equal causation, but in this instance, the data speaks loud and clear.
+That on the days and even times in qustion Dealer Billy Jones and
+Player Mylie Schmidt are the only two consistent variables when looking at these losses.
+
+It is recommended that further investigations on these two be initiated starting with a suspension of 
+Mr. Jones and ban of Ms. Schmidt from entering the casino while the investigation is being conducted.     
