@@ -40,7 +40,6 @@ Integrating an ELK server allows users to easily monitor the vulnerable VMs for 
 - Metricbeat periodically collect metrics from the operating system and from services running on the server.
 
 The configuration details of each machine may be found below.
-_Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdown_tables) to add/remove values from the table_.
 
 | Name                | Function          | IP Address | Operating System |
 |---------------------|-------------------|------------|------------------|
@@ -79,12 +78,16 @@ A summary of the access policies in place can be found in the table below.
 ### Elk Configuration
 
 Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
-- _TODO: What is the main advantage of automating configuration with Ansible?_
+-What is the main advantage of automating configuration with Ansible?
+  - The main advanrtage of automating configuration with Ansible is that users are able to configure multiple machines using a single file as Infrastucture as Code
 
-The playbook implements the following tasks:
-- _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- ...
-- ...
+The Install-Elk playbook implements the following tasks:
+- Installs Docker.io
+- Installs python3-pip
+- Increases the virtual memory
+- Installs the ELK Docker container
+- Enables the docker service on boot
+
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
