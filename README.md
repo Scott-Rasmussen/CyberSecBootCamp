@@ -65,15 +65,15 @@ Machines within the network can only be accessed by SSH (Port 80).
 
 A summary of the access policies in place can be found in the table below.
 
-| Name     | Publicly Accessible | Allowed IP Addresses      |
-|----------|---------------------|---------------------------|
-| Jump Box | No                  | 68.XXX.XX.XX (Personal IP)|
-|  ELK1    | No                  | 10.1.0.4                  |
-| WEB-1    | Yes- Load Balancer  | LB:104.40.75.217          |
-| WEB-2    | Yes- Load Balancer  | LB:104.40.75.217          | 
-| WEB-3    | Yes- Load Balancer  | LB:104.40.75.217          |     
-| DVWA-VM3 | Yes- Load Balancer  | LB:104.40.75.217          |
-| DWVA-VM4 | Yes- Load Balancer  | LB:104.40.75.217          |         
+| Name     | Publicly Accessible | Allowed IP Addresses         |
+|----------|---------------------|------------------------------|
+| Jump Box | No                  | 68.XXX.XX.XX (Personal IP)   |
+|  ELK1    | No                  | JB:10.1.0.4|68.XXX.XX.XX:5601|                    |
+| WEB-1    | Yes- Load Balancer  | LB:104.40.75.217|JB:10.1.0.4 |
+| WEB-2    | Yes- Load Balancer  | LB:104.40.75.217|JB:10.1.0.4 | 
+| WEB-3    | Yes- Load Balancer  | LB:104.40.75.217|JB:10.1.0.4 |     
+| DVWA-VM3 | Yes- Load Balancer  | LB:104.40.75.217|JB:10.1.0.4 |
+| DWVA-VM4 | Yes- Load Balancer  | LB:104.40.75.217|JB:10.1.0.4 |         
 
 ### Elk Configuration
 
@@ -105,19 +105,24 @@ We have installed the following Beats on these machines:
 - Filebeat & Metricbeat
 
 These Beats allow us to collect the following information from each machine:
-- _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+- Filebeat collects system logs
+- Metricbeat collects system metric data
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the _____ file to _____.
-- Update the _____ file to include...
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
+- Copy the filebeat-config.yml & metricbeat-config.yml file to /etc/ansible/files.
+- Update the config.yml files to include the privte !P of the ELK Stack to the output.elasticsearch and setup.kibana sections of the config files.
+- Run the playbook, and navigate to http://ELK_Public_IP:5601/app/kibana to check that the installation worked as expected.
 
 
 - Which file is the playbook? Where do you copy it?
-  - 
+-The three playbooks in this repo are:
+  * [install-elk.yml](ansible/install-elk.yml): 
+  * [filebeat-playbook.yml](ansible/filebeat-playbook.yml): 
+  * [metricbeat.yml](ansible/metricbeat.yml): 
+
 Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?
 - The Ansible hosts file located at /etc/ansible/hosts allows the user to deisignate if a machine is a Webserver or ELK Stack (or others) and then within the paybooks the user can designate which host to run on.
 
