@@ -44,13 +44,13 @@ _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdow
 
 | Name                | Function | IP Address | Operating System |
 |---------------------|----------|------------|------------------|
-| JumpBoxProvisioner  | Gateway  | 10.1.0.4   | Linux            |
-| ELK1                | ELK Stack| 10.0.0.4   | Linux            |
-| WEB-1               |          | 10.1.0.7   | Linux            |
-| WEB-2               |          | 10.1.0.6   | Linux            |
-| WEB-3               |          | 10.1.0.8   | Linux            |         
-| DVWA-VM3            |          | 10.2.0.8   | Linux            |
-| DWVA-VM4            |          | 10.2.0.9   | Linux            |
+| JumpBoxProvisioner  | Gateway  | 10.1.0.4   | Linux (18.04 LTS)|
+| ELK1                | ELK Stack| 10.0.0.4   | Linux (18.04 LTS)|
+| WEB-1               |          | 10.1.0.7   | Linux (18.04 LTS)|
+| WEB-2               |          | 10.1.0.6   | Linux (18.04 LTS)|
+| WEB-3               |          | 10.1.0.8   | Linux (18.04 LTS)|         
+| DVWA-VM3            |          | 10.2.0.8   | Linux (18.04 LTS)|
+| DWVA-VM4            |          | 10.2.0.9   | Linux (18.04 LTS)|
 
 
 ### Access Policies
