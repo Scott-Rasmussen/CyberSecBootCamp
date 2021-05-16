@@ -5,14 +5,17 @@ Repository of Boot Camp Projects
 
 The files in this repository were used to configure the network depicted below.
 
-![TODO: Update the path with the name of your diagram](Images/diagram_filename.png)
+![](https://github.com/Scott-Rasmussen/CyberSecBootCamp/blob/main/diagrams/AZURE_Cloud_Updated.png)
 
-These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the _____ file may be used to install only certain pieces of it, such as Filebeat.
+These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the "playbook".yml file may be used to install only certain pieces of it, such as Filebeat.
 
-  - _TODO: Enter the playbook file._
+* [pentest.yml](ansible/pentest.yml): used to create DVWA servers
+* [install-elk.yml](ansible/install-elk.yml): used to create ELK Stack Server
+* [filebeat-playbook.yml](ansible/filebeat-playbook.yml): used to download & install filebeat on network servers & to provide Kibana data.
+* [metricbeat.yml](ansible/metricbeat.yml): used to download & install metricbeat on network servers & to provide Kibana data.
 
 This document contains the following details:
-- Description of the Topologu
+- Description of the Topology
 - Access Policies
 - ELK Configuration
   - Beats in Use
@@ -22,42 +25,55 @@ This document contains the following details:
 
 ### Description of the Topology
 
-The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D*mn Vulnerable Web Application.
+The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the Damn Vulnerable Web Application.
 
-Load balancing ensures that the application will be highly _____, in addition to restricting _____ to the network.
-- _TODO: What aspect of security do load balancers protect? What is the advantage of a jump box?_
+Load balancing ensures that the application will be highly available, in addition to restricting access to the network.
+With respect to the Accesibility leg of the CIA Triad, the load balancer ensures avaibiity of the servers during high volume usage
+while the load balancing pool creates a redundancy net in case of server failure.  
 
-Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the _____ and system _____.
-- _TODO: What does Filebeat watch for?_
-- _TODO: What does Metricbeat record?_
+The Jump-Box within the network serves as an administrative portal to the servers.  Security rules have been enabled that allow for
+only one IP to acceess it externally.  This ensures a more secure network and helps satisfy the Integrity leg of the CIA Triad.  
+
+Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the logs and system traffic.
+- Filebeat monitors the log files or locations specified by the user, collects log events, and forwards them either to Elasticsearch 
+  or Logstash for indexing.
+- Metricbeat periodically collect metrics from the operating system and from services running on the server.
 
 The configuration details of each machine may be found below.
 _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdown_tables) to add/remove values from the table_.
 
-| Name     | Function | IP Address | Operating System |
-|----------|----------|------------|------------------|
-| Jump Box | Gateway  | 10.0.0.1   | Linux            |
-| TODO     |          |            |                  |
-| TODO     |          |            |                  |
-| TODO     |          |            |                  |
+| Name                | Function          | IP Address | Operating System |
+|---------------------|-------------------|------------|------------------|
+| JumpBoxProvisioner  | Gateway           | 10.1.0.4   | Linux (18.04 LTS)|
+| ELK1                | ELK Stack         | 10.0.0.4   | Linux (18.04 LTS)|
+| WEB-1               | Server/Docker/DVWA| 10.1.0.7   | Linux (18.04 LTS)|
+| WEB-2               | Server/Docker/DVWA| 10.1.0.6   | Linux (18.04 LTS)|
+| WEB-3               | Server/Docker/DVWA| 10.1.0.8   | Linux (18.04 LTS)|     
+| DVWA-VM3            | Server/Docker/DVWA| 10.2.0.8   | Linux (18.04 LTS)|
+| DWVA-VM4            | Server/Docker/DVWA| 10.2.0.9   | Linux (18.04 LTS)|
+
 
 ### Access Policies
 
 The machines on the internal network are not exposed to the public Internet. 
 
-Only the _____ machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-- _TODO: Add whitelisted IP addresses_
+Only the JumpBoxProvisioner machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
+- 68.XXX.XX.XX (personal IP address)
 
-Machines within the network can only be accessed by _____.
-- _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
+Machines within the network can only be accessed by SSH (Port 80).
+- The ELF Stack is only accessable from JumpBoxProvisioner with a private IP address of 10.1.0.4.
 
 A summary of the access policies in place can be found in the table below.
 
-| Name     | Publicly Accessible | Allowed IP Addresses |
-|----------|---------------------|----------------------|
-| Jump Box | Yes/No              | 10.0.0.1 10.0.0.2    |
-|          |                     |                      |
-|          |                     |                      |
+| Name     | Publicly Accessible | Allowed IP Addresses      |
+|----------|---------------------|---------------------------|
+| Jump Box | No                  | 68.XXX.XX.XX (Personal IP)|
+|  ELK1    | No                  | 10.1.0.4                  |
+| WEB-1    | Yes- Load Balancer  | LB:104.40.75.217          |
+| WEB-2    | Yes- Load Balancer  | LB:104.40.75.217          | 
+| WEB-3    | Yes- Load Balancer  | LB:104.40.75.217          |     
+| DVWA-VM3 | Yes- Load Balancer  | LB:104.40.75.217          |
+| DWVA-VM4 | Yes- Load Balancer  | LB:104.40.75.217          |         
 
 ### Elk Configuration
 
@@ -93,7 +109,11 @@ SSH into the control node and follow the steps below:
 
 _TODO: Answer the following questions to fill in the blanks:_
 - _Which file is the playbook? Where do you copy it?_
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-- _Which URL do you navigate to in order to check that the ELK server is running?
+Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?
+- The Ansible hosts file located at /etc/ansible/hosts allows the user to deisignate if a machine is a Webserver or ELK Stack (or others) and then within the paybooks the user can designate which host to run on.
+
+
+Which URL do you navigate to in order to check that the ELK server is running?
+- ELK_Public_IP:5601
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
