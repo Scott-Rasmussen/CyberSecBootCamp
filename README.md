@@ -116,6 +116,7 @@ _TODO: Answer the following questions to fill in the blanks:_
 Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?
 - The Ansible hosts file located at /etc/ansible/hosts allows the user to deisignate if a machine is a Webserver or ELK Stack (or others) and then within the paybooks the user can designate which host to run on.
 
+![](https://github.com/Scott-Rasmussen/CyberSecBootCamp/blob/main/Images/hosts%20screenshot.png)
 
 Which URL do you navigate to in order to check that the ELK server is running?
 - ELK_Public_IP:5601
