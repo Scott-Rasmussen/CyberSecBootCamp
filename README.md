@@ -48,11 +48,8 @@ _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdow
 | ELK1                | ELK Stack         | 10.0.0.4   | Linux (18.04 LTS)|
 | WEB-1               | Server/Docker/DVWA| 10.1.0.7   | Linux (18.04 LTS)|
 | WEB-2               | Server/Docker/DVWA| 10.1.0.6   | Linux (18.04 LTS)|
-<<<<<<< HEAD
 | WEB-3               | Server/Docker/DVWA| 10.1.0.8   | Linux (18.04 LTS)|     
-=======
 | WEB-3               | Server/Docker/DVWA| 10.1.0.8   | Linux (18.04 LTS)|         
->>>>>>> bcffa0a5ff20a68636e82ffc020eebd09a154825
 | DVWA-VM3            | Server/Docker/DVWA| 10.2.0.8   | Linux (18.04 LTS)|
 | DWVA-VM4            | Server/Docker/DVWA| 10.2.0.9   | Linux (18.04 LTS)|
 
